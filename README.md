@@ -1,11 +1,11 @@
-##INSTALAR MINIKUBE
+## INSTALAR MINIKUBE
 
 ````
 $ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo cp minikube /usr/local/bin/ && rm minikube
 $ curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo cp kubectl /usr/local/bin/ && rm kubectl
 ````
 
-###Para Testear que todo haya ido bien:
+### Para Testear que todo haya ido bien:
 
 ````
 $ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080
@@ -36,19 +36,19 @@ $ kubectl delete deployment hello-minikube
 deployment "hello-minikube" deleted
 ````
 
-###Para parar minikube:
+### Para parar minikube:
 
 ````
 $ minikube stop
 ````
 
-#### Minikube Dashboard
+### Minikube Dashboard
 
 ````
 $ minikube dasboard
 ````
 
-##CREAR INFRAESTRUCTURA
+## CREAR INFRAESTRUCTURA
 
 ````
 $ docker network create --driver=bridge --subnet=192.168.2.0/24 --gateway=192.168.2.10 k8s-exmaple-network
