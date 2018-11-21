@@ -5,16 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 @AllArgsConstructor
 @Builder
 @Data
 @NoArgsConstructor
-public class ProductPromo {
-    private String productId;
-    private Integer quantity;
-    private BigDecimal unitPrice;
-}
+public class PromoCommand {
 
+    Promo promo;
+}
