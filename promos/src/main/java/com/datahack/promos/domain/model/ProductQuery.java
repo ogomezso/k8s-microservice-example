@@ -7,19 +7,16 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-
 
 @AllArgsConstructor
 @Builder
 @Data
 @NoArgsConstructor
-public class PromoQuery {
+public class ProductQuery {
 
-    private String id;
-    private String sellerId;
-    private Date timeEnd;
+    private String productId;
+    private String productName;
+    private Date expirationDate;
+    private BigDecimal productPrice;
     private Integer quantity;
-    private String description;
-    private List<ProductQuery> productsQuery;
 }

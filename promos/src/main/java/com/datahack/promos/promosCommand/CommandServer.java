@@ -8,21 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class CommandServer {
     private final CommandDas commandDas;
-   // private final CommandEventPublisher eventPublisher;
+    private final CommandEventPublisher eventPublisher;
 
     @Autowired
     public CommandServer(CommandDas commandDas
-           // , CommandEventPublisher eventPublisher) {
-    ){
+            , CommandEventPublisher eventPublisher) {
         this.commandDas = commandDas;
-       // this.eventPublisher = eventPublisher;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
     public Promo createPromo(Promo promo){
 
         Promo savedObject = commandDas.savePromo(promo);
-       // eventPublisher.publishCommandEvent(savedObject);
+        eventPublisher.publishPromoEvent(savedObject);
 
         return savedObject;
     }
