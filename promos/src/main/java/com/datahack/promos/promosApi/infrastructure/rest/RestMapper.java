@@ -2,7 +2,6 @@ package com.datahack.promos.promosApi.infrastructure.rest;
 
 
 import com.datahack.promos.domain.model.Promo;
-import com.datahack.promos.domain.model.PromoCommand;
 import com.datahack.promos.promosApi.infrastructure.rest.model.PromoApiRequest;
 import org.mapstruct.Mapper;
 

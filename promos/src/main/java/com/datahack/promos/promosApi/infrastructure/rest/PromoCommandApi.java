@@ -1,8 +1,8 @@
 package com.datahack.promos.promosApi.infrastructure.rest;
 
 
+import com.datahack.promos.domain.exception.PromoInvalidException;
 import com.datahack.promos.domain.model.Promo;
-import com.datahack.promos.domain.model.PromoCommand;
 import com.datahack.promos.promosApi.application.PromoProcessor;
 import com.datahack.promos.promosApi.infrastructure.rest.model.PromoApiRequest;
 import io.swagger.annotations.Api;
@@ -34,7 +34,7 @@ public class PromoCommandApi {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(code = HttpStatus.CREATED)
-    ResponseEntity<PromoCommand> createPromo(
+    ResponseEntity<Promo> createPromo(
             @ApiParam("Request Body") @Valid @RequestBody PromoApiRequest request) throws PromoInvalidException {
 
         Promo promo = promoMapper.request2Domain(request);

@@ -1,5 +1,6 @@
 package com.datahack.promos.promosApi.application;
 
+import com.datahack.promos.domain.exception.PromoInvalidException;
 import com.datahack.promos.domain.model.Promo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class PromoProcessor {
         this.commandClient = commandClient;
     }
 
-    public Promo createPromo(Promo promo) throws PromoInvalidException{
+    public Promo createPromo(Promo promo) throws PromoInvalidException {
 
         Optional<Boolean> validated = Optional.ofNullable(promoValidator.validatePromo(promo));
 
