@@ -26,4 +26,4 @@ spring:
 
 
 products:
-    basepath: http://locahotd
+    basepath: http://localhost:7002/products/

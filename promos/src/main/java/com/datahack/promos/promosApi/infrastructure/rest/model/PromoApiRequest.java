@@ -19,5 +19,6 @@ public class PromoApiRequest {
     private String sellerId;
     private Date timeEnd;
     private Integer quantity;
+    private String description;
     private List<ProductPromoApiRequest> productsPromo;
 }
