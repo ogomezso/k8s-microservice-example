@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface QueryRepository extends MongoRepository<PromoQueryDocument,Long> {
+public interface QueryRepository extends MongoRepository<PromoQueryDocument,String> {
 }

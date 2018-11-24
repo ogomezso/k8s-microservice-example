@@ -20,10 +20,22 @@ public class QueryListener implements ApplicationListener<PromoEvent>
 
     @Override
     public void onApplicationEvent(PromoEvent promoEvent) {
+        switch (promoEvent.getEventType()){
+            case CREATED:{
+                log.info("Query model receive command event: {}", promoEvent.getEventBody());
+                PromoQuery promoQuery = promoQueryBuilder.build(promoEvent.getEventBody());
 
-        log.info("Query model receive command event: {}", promoEvent.getEventBody());
-        PromoQuery promoQuery = promoQueryBuilder.build(promoEvent.getEventBody());
-        queryDas.saveQueryDocument(promoQuery);
-        log.info("Document Saved: {}", promoQuery);
+                queryDas.saveQueryDocument(promoQuery);
+                log.info("Document Saved: {}", promoQuery);
+                break;
+            }
+            case DELETED:{
+                log.info("Query model receive DELETE event: {}",promoEvent.getPromoId());
+                queryDas.deletePromoQuery(promoEvent.getPromoId());
+                break;
+            }
+        }
+
+
     }
 }

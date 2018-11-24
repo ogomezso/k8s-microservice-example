@@ -1,6 +1,7 @@
 package com.datahack.promos.promosApi.infrastructure.rest.model;
 
 import com.datahack.promos.domain.model.ProductPromo;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PromoApiRequest {
 
-    private String promoId;
+    private String id;
     private String sellerId;
     private Date timeEnd;
     private Integer quantity;

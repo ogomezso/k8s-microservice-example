@@ -20,7 +20,10 @@ public class CommandClient {
     }
 
     Promo createPromo(Promo promo){
+        log.info("Client calls create Promo");
         return commandServer.createPromo(promo);
     }
+
+    boolean deletePromo(String id) {return commandServer.deletePromo(id);}
 
 }

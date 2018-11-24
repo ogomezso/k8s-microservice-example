@@ -19,9 +19,15 @@ class CommandEventPublisher {
     private ApplicationEventPublisher applicationEventPublisher;
 
     void publishPromoEvent(final Promo promo) {
-
-        PromoEvent event = new PromoEvent(this, promo);
-        applicationEventPublisher.publishEvent(event);
         log.info("Client Command Event Published with Body {}", promo);
+        PromoEvent event = new PromoEvent(this, promo, PromoEvent.EventType.CREATED);
+        applicationEventPublisher.publishEvent(event);
+        log.info("Finished Publishing event with Body {}", promo);
+    }
+
+    void publishDeletedPromoEvent(String id) {
+        PromoEvent event = new PromoEvent(this, id, PromoEvent.EventType.DELETED);
+        applicationEventPublisher.publishEvent(event);
+        log.info("Client Command Event Published with id {}", id);
     }
 }

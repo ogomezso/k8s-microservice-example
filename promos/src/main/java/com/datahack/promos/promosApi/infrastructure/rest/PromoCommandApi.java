@@ -1,8 +1,10 @@
 package com.datahack.promos.promosApi.infrastructure.rest;
 
 
+import com.datahack.promos.domain.exception.PromoDoesNotExistsException;
 import com.datahack.promos.domain.exception.PromoInvalidException;
 import com.datahack.promos.domain.model.Promo;
+import com.datahack.promos.domain.model.PromoQuery;
 import com.datahack.promos.promosApi.application.PromoProcessor;
 import com.datahack.promos.promosApi.infrastructure.rest.model.PromoApiRequest;
 import io.swagger.annotations.Api;
@@ -41,4 +43,40 @@ public class PromoCommandApi {
 
         return new ResponseEntity<>(promoProcessor.createPromo(promo), HttpStatus.CREATED);
     }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(code = HttpStatus.OK)
+    ResponseEntity<PromoQuery> modifyPromo(
+            @ApiParam("Request Body") @Valid @RequestBody PromoApiRequest request) throws PromoInvalidException  {
+        try {
+            Promo promo = promoMapper.request2Domain(request);
+            PromoQuery modifiedPromo = promoProcessor.modifyPromo(promo);
+            return new ResponseEntity<>(modifiedPromo, HttpStatus.OK);
+        }catch (PromoDoesNotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
+    }
+
+    @GetMapping(path = "/{promoid}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    ResponseEntity<PromoQuery> getPromo(@PathVariable String promoid) {
+        try {
+            PromoQuery promo = promoProcessor.getPromo(promoid);
+            return new ResponseEntity<>(promo, HttpStatus.OK);
+        }catch (PromoDoesNotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping(path = "/{promoid}", produces = {MediaType.TEXT_PLAIN_VALUE})
+    ResponseEntity<String> deletePromo(@PathVariable String promoid) {
+        if (promoProcessor.deletePromo(promoid)) {
+            return new ResponseEntity<>("Promo "+promoid+" deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }

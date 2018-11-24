@@ -4,8 +4,7 @@ import com.datahack.promos.domain.model.ProductPromo;
 import com.datahack.promos.domain.model.ProductQuery;
 import com.datahack.promos.domain.model.Promo;
 import com.datahack.promos.domain.model.PromoQuery;
-import com.datahack.promos.promosApi.infrastructure.rest.model.ProductPromoApiRequest;
-import com.datahack.promos.promosApi.infrastructure.rest.model.PromoApiRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,11 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
-import java.net.ConnectException;
-
-import static io.fabric8.kubernetes.api.model.KubernetesKind.List;
-
 @Component
+@Slf4j
 public class PromoQueryBuilder {
     private final PodamFactory podamFactory = new PodamFactoryImpl();
     private final RestTemplate restTemplate;
@@ -35,6 +31,7 @@ public class PromoQueryBuilder {
     }
 
     PromoQuery build(Promo promo) {
+        log.info("Building PromoQuery with promo: {}",promo);
         PromoQuery response = podamFactory.manufacturePojo(PromoQuery.class);
 
         response.setId(promo.getId());
