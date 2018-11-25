@@ -30,7 +30,8 @@ hs_err_pid*
 .idea
 *.iml
 out
-gen### Maven template
+gen
+### Maven template
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -39,7 +40,7 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
-.mvn/timing.properties
+.mvn/*
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
@@ -48,3 +49,7 @@ Sera borrado .idea/modules.xml
 Sera borrado .idea/workspace.xml
 Sera borrado README.md
 Sera borrado infrastructure/
+
+# Mongo volume
+
+/infrastructure/data/*

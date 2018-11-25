@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: false
+    stream:
+      kafka:
+        binder:
+          brokers: 192.168.2.10:9092
+      bindings:
+        command-out:
+          destination: promos
+          contentType: application/json
+  data:
+     mongodb:
+       uri: mongodb://192.168.2.10:27017/test
+  datasource:
+    url: jdbc:postgresql://192.168.2.10:5432/postgres?currentSchema=public
+    username: postgres
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+
+
+products:
+    basepath: http://localhost:7002/products/
