@@ -1,9 +1,6 @@
 package com.datahack.k8sms.orders.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @Builder
@@ -11,7 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderCommand {
 
+    private String id;
+    @NonNull
     private String clientId;
+    @NonNull
     private String promoId;
+    @NonNull
     private Integer quantity;
 }

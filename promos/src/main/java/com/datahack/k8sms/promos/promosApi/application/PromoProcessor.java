@@ -18,17 +18,18 @@ public class PromoProcessor {
 
     private final PromoValidator promoValidator;
     private final CommandClient commandClient;
-    private final QueryDas queryDas;
+    private final QueryClient queryClient;
+
 
     @Autowired
     public PromoProcessor(PromoValidator promoValidator
             , PromoQueryBuilder promoQueryBuilder
             , CommandClient commandClient
-            , QueryDas queryDas) {
+            , QueryClient queryClient) {
         this.promoValidator = promoValidator;
 
         this.commandClient = commandClient;
-        this.queryDas = queryDas;
+        this.queryClient = queryClient;
     }
 
     public Promo createPromo(Promo promo) throws PromoInvalidException {
@@ -50,13 +51,13 @@ public class PromoProcessor {
         }
         Optional<Boolean> validated = Optional.ofNullable(promoValidator.validatePromo(promo));
         return validated.filter(v -> v.equals(true))
-                .map(response ->  queryDas.modifyPromo(promo))
+                .map(response ->  queryClient.modifyPromo(promo))
                 .orElseThrow(() -> new PromoInvalidException("Promo is invalid."));
     }
 
     public PromoQuery getPromo(String id) throws PromoDoesNotExistsException {
         log.info("Getting Promo: {}",id);
-        return queryDas.getPromoQuery(id);
+        return queryClient.getPromo(id);
     }
 
     public boolean deletePromo(String id)  {

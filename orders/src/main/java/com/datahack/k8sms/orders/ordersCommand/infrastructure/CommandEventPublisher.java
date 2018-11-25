@@ -18,10 +18,17 @@ class CommandEventPublisher {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    void publishCommandEvent(final OrderCommand orderCommand) {
+    void publishCreateCommandEvent(final OrderCommand orderCommand) {
 
-        CommandEvent event = new CommandEvent(this, orderCommand);
+        CommandEvent event = new CommandEvent(this, orderCommand, CommandEvent.EventType.CREATED);
         applicationEventPublisher.publishEvent(event);
         log.info("Client Command Event Published with Body {}", orderCommand);
+    }
+
+    void publishDeleteProductEvent(final String id) {
+
+        CommandEvent event = new CommandEvent(this, id, CommandEvent.EventType.DELETED);
+        applicationEventPublisher.publishEvent(event);
+        log.info("Client Command Event Published with ID {}", id);
     }
 }

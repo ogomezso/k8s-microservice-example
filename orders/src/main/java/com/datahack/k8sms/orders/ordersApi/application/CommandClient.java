@@ -20,4 +20,8 @@ class CommandClient {
     OrderCommand createCommand(OrderCommand orderCommand){
         return commandServer.createClientOrderCommand(orderCommand);
     }
+
+    boolean deleteOrder(String id) {
+        return commandServer.deleteOrder(id);
+    }
 }

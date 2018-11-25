@@ -21,10 +21,20 @@ class QueryListener implements ApplicationListener<CommandEvent> {
     @Override
     public void onApplicationEvent(CommandEvent commandEvent) {
 
-        log.info("Query model receive command event: {}", commandEvent.getEventBody());
-        OrderQuery orderQuery = orderQueryBuilder.build(commandEvent.getEventBody());
-        queryDas.saveQueryDocument(orderQuery);
-        log.info("Document Saved: {}", orderQuery);
+        switch (commandEvent.getEventType()){
+            case CREATED:{
+                log.info("Query model receive command event: {}", commandEvent.getEventBody());
+                OrderQuery orderQuery = orderQueryBuilder.build(commandEvent.getEventBody());
+                OrderQuery savedQuery = queryDas.saveQueryDocument(orderQuery);
+                log.info("Query Saved: {}", savedQuery);
+                break;
+            }
+            case DELETED:{
+                log.info("Query model receive DELETE event: {}",commandEvent.getProductId());
+                queryDas.deleteOrderQuery(commandEvent.getProductId());
+                break;
+            }
+        }
     }
 
 }

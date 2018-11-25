@@ -18,8 +18,14 @@ class OrderQueryBuilder {
 
         //TODO get client and product Data from a master client info datasource and promo Query API
         OrderQuery response = podamFactory.manufacturePojo(OrderQuery.class);
-
+        response.setId(eventBody.getId());
         response.setClientId(eventBody.getClientId());
+        response.setPromoId(eventBody.getPromoId());
+
+        //TODO, FINISH
+        response.getProducts().clear();
+
+
         response.setCreationDate(new Date());
 
         return response;

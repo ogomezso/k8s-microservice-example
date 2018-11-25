@@ -28,7 +28,7 @@ public class SwaggerConfig {
     public Docket customImplementation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.datahack.promos.promosApi.infrastructure.rest"))
+                .apis(RequestHandlerSelectors.basePackage("com.datahack.k8sms.promos.promosApi.infrastructure.rest"))
                 .build()
                 .apiInfo(apiInfo());
     }

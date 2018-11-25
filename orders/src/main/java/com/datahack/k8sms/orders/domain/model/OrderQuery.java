@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderQuery {
 
-    private Long id;
+    private String id;
 
     private String clientId;
 

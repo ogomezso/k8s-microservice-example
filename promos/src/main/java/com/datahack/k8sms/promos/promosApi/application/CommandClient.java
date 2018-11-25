@@ -24,6 +24,8 @@ public class CommandClient {
         return commandServer.createPromo(promo);
     }
 
-    boolean deletePromo(String id) {return commandServer.deletePromo(id);}
+    boolean deletePromo(String id) {
+        return commandServer.deletePromo(id);
+    }
 
 }

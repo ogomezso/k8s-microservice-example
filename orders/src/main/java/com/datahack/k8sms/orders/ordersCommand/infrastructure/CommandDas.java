@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @Slf4j
 class CommandDas {
@@ -22,7 +24,15 @@ class CommandDas {
     OrderCommand saveClientOrder(OrderCommand orderCommand) {
 
         OrderCommandEntity entity2Save = mapper.domain2Entity(orderCommand);
+        OrderCommandEntity saved = commandRepository.save(entity2Save);
+        OrderCommand returned = mapper.entity2Domain(saved);
+        returned.setId(saved.getOrderId().toString());
+        return returned;
+    }
 
-        return mapper.entity2Domain(commandRepository.save(entity2Save));
+    boolean deleteOrder(String id) {
+        boolean exists = commandRepository.existsById(UUID.fromString(id));
+        commandRepository.deleteById(UUID.fromString(id));
+        return exists;
     }
 }

@@ -1,5 +1,7 @@
 package com.datahack.k8sms.orders.ordersApi.infrastructure.rest;
 
+import com.datahack.k8sms.orders.domain.exception.OrderDoesNotExistsException;
+import com.datahack.k8sms.orders.domain.model.OrderQuery;
 import com.datahack.k8sms.orders.ordersApi.application.ClientOrderProcessor;
 import com.datahack.k8sms.orders.domain.exception.PromoNotAvailableException;
 import com.datahack.k8sms.orders.domain.model.OrderCommand;
@@ -32,12 +34,47 @@ public class ClientCommandApi {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(code = HttpStatus.CREATED)
-    ResponseEntity<OrderCommand> createVisit(
+    ResponseEntity<OrderCommand> createOrder(
             @ApiParam("Request Body") @Valid @RequestBody ClientApiRequest request) throws PromoNotAvailableException {
 
         OrderCommand domainObject = mapper.request2Domain(request);
 
         return new ResponseEntity<>(clientOrderProcessor.processClientOrder(domainObject), HttpStatus.CREATED);
 
+    }
+
+//    ORDER CANNOT BE MODIFIED (FOR NOW)
+//    @PutMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    @ResponseStatus(code = HttpStatus.OK)
+//    ResponseEntity<OrderCommand> modifyOrder(
+//            @ApiParam("Request Body") @Valid @RequestBody ClientApiRequest request) throws PromoInvalidException  {
+//        try {
+//            OrderCommand domainObject = mapper.request2Domain(request);
+//            OrderCommand modifiedCommand = clientOrderProcessor.modifyOrder(domainObject);
+//            return new ResponseEntity<>(modifiedCommand, HttpStatus.OK);
+//        }catch (OrderDoesNotExistsException e) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//
+//    }
+
+    @GetMapping(path = "/{orderid}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    ResponseEntity<OrderQuery> getPromo(@PathVariable String orderid) {
+        try {
+            OrderQuery orderQuery = clientOrderProcessor.getOrder(orderid);
+            return new ResponseEntity<>(orderQuery, HttpStatus.OK);
+        }catch (OrderDoesNotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping(path = "/{orderid}", produces = {MediaType.TEXT_PLAIN_VALUE})
+    ResponseEntity<String> deletePromo(@PathVariable String orderid) {
+        if (clientOrderProcessor.deleteOrder(orderid)) {
+            return new ResponseEntity<>("Order "+orderid+" deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
