@@ -19,4 +19,5 @@ public class Promo {
     private Integer quantity;
     private String description;
     private List<ProductPromo> productsPromo;
+
 }

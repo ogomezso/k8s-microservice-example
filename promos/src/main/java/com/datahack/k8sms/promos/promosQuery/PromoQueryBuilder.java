@@ -23,7 +23,7 @@ public class PromoQueryBuilder {
 
 
     @Value("${products.basepath}")
-    private String promoBasepath;
+    private String productBasePath;
 
     @Autowired
     public PromoQueryBuilder(RestTemplate restTemplate) {
@@ -43,7 +43,7 @@ public class PromoQueryBuilder {
 
 
         for (ProductPromo prod:promo.getProductsPromo()) {
-            String getpath = promoBasepath+"/"+prod.getProductId().toString();
+            String getpath = productBasePath+"/"+prod.getProductId().toString();
 
             try
             {
